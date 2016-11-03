@@ -1,6 +1,15 @@
 # f2jdic-android
-Simple french to japanese dictionary utilizing f2jdic.
+Simple french to japanese dictionary. 
 
-# Screen shots
-<img src="device-2016-11-04-024524.png" width="320px">
-<img src="device-2016-11-04-024904.png" width="320px">
+Database file is based on [f2jdic](http://www.vector.co.jp/soft/win95/edu/se217092.html) by ICHIRO.
+
+# Unimplemented..
+
+* History
+* Tool Bar
+* Setting
+* TTS
+
+# Screenshots
+<img src="device-2016-11-04-024524.png" width="350px">
+<img src="device-2016-11-04-024904.png" width="350px">
