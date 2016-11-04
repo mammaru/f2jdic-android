@@ -85,4 +85,18 @@ public final class Words extends ArrayList<Item> {
         }
     }
 
+    public int totalCount() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int count = 0;
+        try {
+            Cursor cursor = db.query(TABLE_NAME, new String[]{"word"}, null, null, null, null, null);
+            count = cursor.getCount();
+            cursor.close();
+        } finally {
+            db.close();
+        }
+        return count;
+    }
+
+
 }

@@ -108,22 +108,6 @@ public final class Item implements Serializable {
         } finally {
             db.close();
         }
-    }
-
-    public int count() {
-        DatabaseHelper dbHelper = new DatabaseHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        int count = 0;
-        Cursor cursor = null;
-        String[] columus = new String[]{"word", "translation", "example"};
-        try {
-            cursor = db.query(TABLE_NAME, columus, null, null, null, null, null);
-            count = cursor.getCount();
-            cursor.close();
-        } finally {
-            db.close();
-        }
-        return count;
     }*/
 }
 

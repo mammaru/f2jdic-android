@@ -31,10 +31,10 @@ public final class Idioms extends ArrayList<Item> {
         Item idiom;
         ArrayList<Item> list = new ArrayList<Item>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT word, trans, exp FROM " + TABLE_NAME + " WHERE word LIKE '%' || ? || '%' LIMIT 20";
+        String sql = "SELECT word, trans, exp FROM " + TABLE_NAME + " WHERE word LIKE ? || ' %' OR word LIKE '% ' || ? || ' %' OR word LIKE '% ' || ? LIMIT 20";
         System.out.println("Execute sql: " + sql);
         try {
-            Cursor cursor = db.rawQuery(sql, new String[]{key});
+            Cursor cursor = db.rawQuery(sql, new String[]{key, key, key});
             while (cursor.moveToNext()) {
                 idiom = new Item();
                 System.out.println(cursor.getString(0));
@@ -50,5 +50,17 @@ public final class Idioms extends ArrayList<Item> {
         }
     }
 
+    public int totalCount() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int count = 0;
+        try {
+            Cursor cursor = db.query(TABLE_NAME, new String[]{"word"}, null, null, null, null, null);
+            count = cursor.getCount();
+            cursor.close();
+        } finally {
+            db.close();
+        }
+        return count;
+    }
 
 }
