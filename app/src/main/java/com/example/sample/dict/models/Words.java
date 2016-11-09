@@ -38,7 +38,7 @@ public final class Words extends ArrayList<Item> {
         ArrayList<Item> list = new ArrayList<Item>();
         //DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT word, trans, exp FROM " + TABLE_NAME + " WHERE word LIKE ? || '%' LIMIT 20";
+        String sql = "SELECT label, trans, exp FROM " + TABLE_NAME + " WHERE label LIKE ? || '%' LIMIT 20";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, new String[]{key});
@@ -65,7 +65,7 @@ public final class Words extends ArrayList<Item> {
         //DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ArrayList<String> words = new ArrayList<>();
-        String sql = "SELECT word, trans, exp FROM " + TABLE_NAME + " WHERE trans LIKE '%' || ? || '%' LIMIT 20";
+        String sql = "SELECT label, trans, exp FROM " + TABLE_NAME + " WHERE trans LIKE '%' || ? || '%' LIMIT 20";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, new String[]{key});
@@ -89,7 +89,7 @@ public final class Words extends ArrayList<Item> {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count = 0;
         try {
-            Cursor cursor = db.query(TABLE_NAME, new String[]{"word"}, null, null, null, null, null);
+            Cursor cursor = db.query(TABLE_NAME, new String[]{"label"}, null, null, null, null, null);
             count = cursor.getCount();
             cursor.close();
         } finally {
