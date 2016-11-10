@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *
      * @throws IOException
      */
-    private void copyDatabaseFromAssets() throws IOException {
+    private void copyDatabaseFromAssets() throws IOException { // TODO: Separate dict.sqlite3 if necessary.
         InputStream inputStream = this.context.getAssets().open(DB_FILE_NAME);
         OutputStream outputStream = new FileOutputStream(dbPath);
 

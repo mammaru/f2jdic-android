@@ -48,7 +48,7 @@ public class History {
         insert(item);
     }
 
-    private ArrayList<Integer> getIDs() {
+    private ArrayList<Integer> getIDs() { // TODO: Implement timestamp sorting in history.
         //Map<String, Timestamp> hist = new HashMap<String, Timestamp>();
         ArrayList<Integer> hist = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();

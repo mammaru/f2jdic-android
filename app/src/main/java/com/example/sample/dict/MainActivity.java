@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         Log.v(TextWatcher.class.getSimpleName(), "afterTextChanged s: " + s.toString());
-        if (s.toString()=="") {
+        if (s.toString().isEmpty()) { // TODO: Relationships of search bar's edittext and history
             words = history.get();
             setItemList(words);
         } else {

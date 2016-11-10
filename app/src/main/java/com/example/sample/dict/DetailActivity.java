@@ -1,5 +1,7 @@
 package com.example.sample.dict;
 
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,14 +13,25 @@ import android.widget.LinearLayout;
 import android.widget.Space;
 import android.content.Intent;
 import android.util.TypedValue;
-//import java.util.ArrayList;
+import android.util.Log;
+import android.speech.tts.TextToSpeech;
+import android.widget.Button;
+
 
 import com.example.sample.dict.models.*;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener, TextToSpeech.OnInitListener {
 
     private Item item;
     private LinearLayout container;
+    private TextToSpeech tts; // TODO: Setting speech speed and pitch
+    final private Float SPEECH_SLOW = 0.5f;
+    final private Float SPEECH_NORMAL = 1.0f;
+    final private Float SPEECH_FAST = 1.5f;
+    final private Float PITCH_LOW = 0.5f;
+    final private Float PITCH_NORMAL = 1.0f;
+    final private Float PITCH_HIGH = 1.5f;
+    private Button buttonSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +48,49 @@ public class DetailActivity extends AppCompatActivity {
         setWordDetail();
         setIdioms();
         setFab();
+
+        tts = new TextToSpeech(this, this);
+        buttonSpeech = (Button)findViewById(R.id.ButtonToSpeech);
+        buttonSpeech.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != tts) {
+            tts.shutdown();
+        }
+    }
+
+    @Override
+    public void onInit(int status) {
+        if (TextToSpeech.SUCCESS == status) {
+            Locale locale = Locale.FRENCH;
+            if (tts.isLanguageAvailable(locale) >= TextToSpeech.LANG_AVAILABLE) {
+                tts.setLanguage(locale);
+            } else {
+                Log.d("", "Error SetLocale");
+            }
+        } else {
+            Log.d("", "Error Init");
+        }
+    }
+
+    private void speechText() {
+        if (0 < item.label.length()) {
+            if (tts.isSpeaking()) {
+                // 読み上げ中なら止める
+                tts.stop();
+            }
+
+            // 読み上げ開始
+            tts.speak(item.label, TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
 
     private void setWordDetail() {
         ((TextView) findViewById(R.id.word_textview)).setText(item.label);
         ((TextView) findViewById(R.id.translation_textview)).setText(item.translation);
-        //((TextView) findViewById(R.id.expression_textview)).setText(item.example);
 
         if(!item.example.isEmpty()) {
             Space sp = new Space(this);
@@ -86,7 +136,7 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void setFab() {
+    private void setFab() { // TODO: Implement edit mode!
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,5 +146,12 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (buttonSpeech == v) {
+            speechText();
+        }
     }
 }
