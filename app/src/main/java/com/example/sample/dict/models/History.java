@@ -7,7 +7,17 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.sample.dict.DatabaseHelper;
 
+
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+
 
 /**
  * Created by yuma on 2016/11/10.
@@ -39,21 +49,27 @@ public class History {
     }
 
     private ArrayList<Integer> getIDs() {
-        ArrayList<Integer> histIDs = new ArrayList<>();
+        //Map<String, Timestamp> hist = new HashMap<String, Timestamp>();
+        ArrayList<Integer> hist = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT _id, word_id, word_label, viewed_at FROM " + TABLE_NAME + " ORDER BY viewed_at ASC";
+        String sql = "SELECT _id, word_id, word_label, viewed_at FROM " + TABLE_NAME + " ORDER BY viewed_at DESC";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, null);
             while (cursor.moveToNext()) {
-                histIDs.add(cursor.getInt(1));
+                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                //Date date = sdf.parse(cursor.getString(1);
+                //Timestamp ts = new Timestamp(date.getTime());
+                //hist.put(cursor.getString(0), ts));
+                System.out.println(cursor.getString(3));
+                hist.add(cursor.getInt(1));
             }
             cursor.close();
         } finally {
             db.close();
         }
-        System.out.println(histIDs.toString());
-        return histIDs;
+        System.out.println(hist.toString());
+        return hist;
     }
 
     private void insert(Item item) {

@@ -1,6 +1,7 @@
 package com.example.sample.dict.models;
 
 import java.util.Collections;
+import java.util.ArrayList;
 import android.text.TextUtils;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,8 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.sample.dict.DatabaseHelper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
+
 
 /**
  * Created by yuma on 2016/11/03.
@@ -77,9 +78,9 @@ public final class Words extends ArrayList<Item> {
                 do {
                     word = new Item();//context);
                     word.id = cursor.getInt(0);
-                    word.label = cursor.getString(0);
-                    word.translation = cursor.getString(1);
-                    word.example = cursor.getString(2);
+                    word.label = cursor.getString(1);
+                    word.translation = cursor.getString(2);
+                    word.example = cursor.getString(3);
                     list.add(word);
                 } while (cursor.moveToNext());
                 this.addAll(list);
@@ -123,7 +124,7 @@ public final class Words extends ArrayList<Item> {
         }
     }
 
-    public int totalCount() {
+    public int getCount() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count = 0;
         try {
