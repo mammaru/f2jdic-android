@@ -1,5 +1,7 @@
 package com.example.sample.dict.models;
 
+import java.util.Collections;
+import android.text.TextUtils;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.sample.dict.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by yuma on 2016/11/03.
@@ -91,18 +94,25 @@ public final class Words extends ArrayList<Item> {
         Item word;
         ArrayList<Item> list = new ArrayList<Item>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ArrayList<String> words = new ArrayList<>();
-        String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE _id ID(?)";
+
+        String[] arr = new String[IDs.size()];
+        for (int i=0;i<IDs.size();i++) {
+            arr[i] = IDs.get(i).toString();
+        }
+
+        String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE _id IN(" + TextUtils.join(",", Collections.nCopies(IDs.size(), "?")) + ")";
+        //String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE _id IN( " + IDs.toString() + " )";
         System.out.println("Execute sql: " + sql);
         try {
-            Cursor cursor = db.rawQuery(sql, new String[]{IDs.toString()});
+            Cursor cursor = db.rawQuery(sql, arr);
+            //Cursor cursor = db.rawQuery(sql, null);
             if (cursor.moveToFirst()) {
                 do {
-                    word = new Item();//context);
+                    word = new Item();
                     word.id = cursor.getInt(0);
-                    word.label = cursor.getString(0);
-                    word.translation = cursor.getString(1);
-                    word.example = cursor.getString(2);
+                    word.label = cursor.getString(1);
+                    word.translation = cursor.getString(2);
+                    word.example = cursor.getString(3);
                     list.add(word);
                 } while (cursor.moveToNext());
                 this.addAll(list);

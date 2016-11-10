@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
         Log.v(this.getLocalClassName(), String.valueOf(R.id.list_item_textview));
         lv = (ListView) findViewById(R.id.item_listview);
-        Words words = history.get();;
+        history = new History(this);
+        words = history.get();;
         setItemList(words);
         EditText et = (EditText)this.findViewById(R.id.search_input_edittext);
         et.addTextChangedListener(this);
@@ -70,13 +71,12 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListView listview = (ListView) parent;
                 Item item = (Item) listview.getItemAtPosition(position);
+                history.add(item);
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                //intent.putStringArrayListExtra("item", item.toArrayList());
                 intent.putExtra("item", item);
                 startActivity(intent);
             }
         });
-        //lv.setAdapter(adapter);
     }
 
     @Override
@@ -95,8 +95,13 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         Log.v(TextWatcher.class.getSimpleName(), "afterTextChanged s: " + s.toString());
-        Words words = new Words(this);
-        words.find(s.toString());
-        setItemList(words);
+        if (s.toString()=="") {
+            words = history.get();
+            setItemList(words);
+        } else {
+            Words words = new Words(this);
+            words.find(s.toString());
+            setItemList(words);
+        }
     }
 }

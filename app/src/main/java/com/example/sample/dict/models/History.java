@@ -34,25 +34,25 @@ public class History {
     public void add(Item item) {
         if(isExists(item)) {
             delete(item);
-        } else {
-            insert(item);
         }
+        insert(item);
     }
 
     private ArrayList<Integer> getIDs() {
         ArrayList<Integer> histIDs = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT _id, word_id, word_label, viewed_at FROM " + TABLE_NAME + "ORDER BY viewed_at DESC";
+        String sql = "SELECT _id, word_id, word_label, viewed_at FROM " + TABLE_NAME + " ORDER BY viewed_at ASC";
         System.out.println("Execute sql: " + sql);
         try {
-            Cursor cursor = db.rawQuery(sql, new String[]{});
+            Cursor cursor = db.rawQuery(sql, null);
             while (cursor.moveToNext()) {
-                histIDs.add(cursor.getInt(0));
+                histIDs.add(cursor.getInt(1));
             }
             cursor.close();
         } finally {
             db.close();
         }
+        System.out.println(histIDs.toString());
         return histIDs;
     }
 
@@ -82,7 +82,7 @@ public class History {
     private boolean isExists(Item item) {
         boolean flag = false;
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT _id, FROM " + TABLE_NAME + "WHERE word_id= ?";
+        String sql = "SELECT _id FROM " + TABLE_NAME + " WHERE word_id= ?";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, new String[]{Integer.toString(item.id)});
