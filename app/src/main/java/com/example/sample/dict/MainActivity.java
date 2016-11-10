@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     private ListView lv;
     //private EditText et;
     private Words words;
+    private History history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
         Log.v(this.getLocalClassName(), String.valueOf(R.id.list_item_textview));
         lv = (ListView) findViewById(R.id.item_listview);
-        Words words = new Words(this);
-        words.find("avoir");
+        Words words = history.get();;
         setItemList(words);
         EditText et = (EditText)this.findViewById(R.id.search_input_edittext);
         et.addTextChangedListener(this);

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public final class Item implements Serializable {
     /** @fields */
-    //private final int id;
+    public int id;
     public String label;
     public String translation;
     public String example;

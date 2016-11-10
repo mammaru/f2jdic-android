@@ -31,16 +31,17 @@ public final class Idioms extends ArrayList<Item> {
         Item idiom;
         ArrayList<Item> list = new ArrayList<Item>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT label, trans, exp FROM " + TABLE_NAME + " WHERE label LIKE ? || ' %' OR label LIKE '% ' || ? || ' %' OR label LIKE '% ' || ? LIMIT 20";
+        String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE label LIKE ? || ' %' OR label LIKE '% ' || ? || ' %' OR label LIKE '% ' || ? LIMIT 20";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, new String[]{key, key, key});
             while (cursor.moveToNext()) {
                 idiom = new Item();
-                System.out.println(cursor.getString(0));
-                idiom.label = cursor.getString(0);
-                idiom.translation = cursor.getString(1);
-                idiom.example = cursor.getString(2);
+                //System.out.println(cursor.getString(0));
+                idiom.id = cursor.getInt(0);
+                idiom.label = cursor.getString(1);
+                idiom.translation = cursor.getString(2);
+                idiom.example = cursor.getString(3);
                 list.add(idiom);
             }
             this.addAll(list);
