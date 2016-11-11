@@ -25,7 +25,7 @@ import java.util.Date;
 
 public class History {
     private final String TABLE_NAME = "HISTORY";
-    private final int MAX_ROW_COUNT = 100;
+    private final int MAX_ROW_COUNT = 100; // TODO: Maximum size of HISTORY table.
     private final Context context;
     private DatabaseHelper dbHelper;
 
