@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dict.iml" filepath="$PROJECT_DIR$/dict.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f2jdic-android.iml" filepath="$PROJECT_DIR$/f2jdic-android.iml" />
     </modules>
   </component>
 </project>
