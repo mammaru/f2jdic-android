@@ -52,7 +52,7 @@ public class History {
         //Map<String, Timestamp> hist = new HashMap<String, Timestamp>();
         ArrayList<Integer> hist = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT _id, word_id, word_label, viewed_at FROM " + TABLE_NAME + " ORDER BY viewed_at ASC";
+        String sql = "SELECT _id, word_id, word_label, viewed_at FROM " + TABLE_NAME + " ORDER BY viewed_at DESC";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, null);
