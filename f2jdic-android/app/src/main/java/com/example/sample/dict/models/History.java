@@ -52,7 +52,7 @@ public class History {
         //Map<String, Timestamp> hist = new HashMap<String, Timestamp>();
         ArrayList<Integer> hist = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT _id, word_id, word_label, viewed_at FROM " + TABLE_NAME + " ORDER BY viewed_at DESC";
+        String sql = "SELECT _id, word_id, word_label, viewed_at FROM " + TABLE_NAME + " ORDER BY viewed_at ASC";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, null);
@@ -61,7 +61,7 @@ public class History {
                 //Date date = sdf.parse(cursor.getString(1);
                 //Timestamp ts = new Timestamp(date.getTime());
                 //hist.put(cursor.getString(0), ts));
-                System.out.println(cursor.getString(3));
+                System.out.println(cursor.getLong(3));
                 hist.add(cursor.getInt(1));
             }
             cursor.close();
@@ -77,6 +77,7 @@ public class History {
         ContentValues values = new ContentValues();
         values.put("word_id", item.id);
         values.put("word_label", item.label);
+        values.put("viewed_at", System.currentTimeMillis());
         try {
             if (db.update(TABLE_NAME, values, "word_id='" + item.id + "'", null) == 0) {
                 db.insert(TABLE_NAME, null, values);

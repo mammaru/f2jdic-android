@@ -19,10 +19,10 @@ import java.io.OutputStream;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_FILE_NAME = "dict.sqlite3"; //database file name in assets
-    private static int DB_VERSION = 1;
+    private static int DB_VERSION = 2;
     private static final String DB_NAME = "dict.db";
     private static File dbFile;
-    private static boolean databaseExist;
+    private static boolean databaseExist = false;
     private Context context;
 
     public DatabaseHelper(Context _context) {
