@@ -1,0 +1,6 @@
+.DS_Store
+*.sqlite3
+/data/utf8/
+/data/pdic/
+/data/*.txt
+!data/readme.txt
