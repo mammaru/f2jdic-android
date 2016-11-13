@@ -77,22 +77,22 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void speechText() {
-        if (0 < item.label.length()) {
+        if (0 < item.fr.length()) {
             if (tts.isSpeaking()) {
                 // 読み上げ中なら止める
                 tts.stop();
             }
 
             // 読み上げ開始
-            tts.speak(item.label, TextToSpeech.QUEUE_FLUSH, null);
+            tts.speak(item.fr, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
     private void setWordDetail() {
-        ((TextView) findViewById(R.id.word_textview)).setText(item.label);
-        ((TextView) findViewById(R.id.translation_textview)).setText(item.translation);
+        ((TextView) findViewById(R.id.word_textview)).setText(item.fr);
+        ((TextView) findViewById(R.id.translation_textview)).setText(item.jp);
 
-        if(!item.example.isEmpty()) {
+        if(!item.exp.isEmpty()) {
             Space sp = new Space(this);
             sp.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -104,7 +104,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             container.addView(exampleLabel);
 
             TextView example = new TextView(this);
-            example.setText(item.example);
+            example.setText(item.exp);
             example.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             container.addView(example);
         }
@@ -113,7 +113,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private void setIdioms() {
         LinearLayout idiomListItem;
         Idioms idioms = new Idioms(this);
-        idioms.find(item.label);
+        idioms.find(item.fr);
         if (idioms.size() > 0) {
             Space sp = new Space(this);
             sp.setLayoutParams(new LinearLayout.LayoutParams(
@@ -126,8 +126,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             container.addView(idiomLabel);
         }
         for (int i = 0; i < idioms.size(); i++) {
-            String idiom = idioms.get(i).label;
-            String translation = idioms.get(i).translation;
+            String idiom = idioms.get(i).fr;
+            String translation = idioms.get(i).jp;
             idiomListItem = (LinearLayout) getLayoutInflater().inflate(R.layout.idiom_list_item, null);
             ((TextView) idiomListItem.findViewById(R.id.idiom_textview)).setText(idiom);
             ((TextView) idiomListItem.findViewById(R.id.idiom_translation_textview)).setText(translation);

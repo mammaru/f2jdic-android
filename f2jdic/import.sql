@@ -5,8 +5,9 @@ drop table if exists HISTORY;
 create table WORD
 (
   _id INTEGER NOT NULL PRIMARY KEY,
-  label TEXT NOT NULL,
-  trans TEXT,
+  fr TEXT NOT NULL,
+  jp TEXT,
+  en TEXT,
   exp TEXT,
   count INTEGER NOT NULL,
   modified INTEGER NOT NULL
@@ -15,8 +16,9 @@ create table WORD
 create table IDIOM
 (
   _id INTEGER NOT NULL PRIMARY KEY,
-  label TEXT NOT NULL,
-  trans TEXT,
+  fr TEXT NOT NULL,
+  jp TEXT,
+  en TEXT,
   exp TEXT,
   count INTEGER NOT NULL,
   modified INTEGER NOT NULL

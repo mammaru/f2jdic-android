@@ -76,7 +76,7 @@ public class History {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("word_id", item.id);
-        values.put("word_label", item.label);
+        values.put("word_label", item.fr);
         values.put("viewed_at", System.currentTimeMillis());
         try {
             if (db.update(TABLE_NAME, values, "word_id='" + item.id + "'", null) == 0) {

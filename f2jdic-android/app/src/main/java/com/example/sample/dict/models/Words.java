@@ -33,16 +33,16 @@ public final class Words extends ArrayList<Item> {
 
     public void find(String key) {
         System.out.println(key);
-        searchByLabel(key);
-        searchByTrans(key);
+        searchByFrench(key);
+        searchByJapanese(key);
     }
 
-    public void searchByLabel(String key) {
+    public void searchByFrench(String key) {
         Item word;
         ArrayList<Item> list = new ArrayList<Item>();
         //DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE label LIKE ? || '%' LIMIT 20";
+        String sql = "SELECT _id, fr, jp, en, exp FROM " + TABLE_NAME + " WHERE fr LIKE ? || '%' LIMIT 20";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, new String[]{key});
@@ -51,9 +51,10 @@ public final class Words extends ArrayList<Item> {
                     word = new Item();//context);
                     System.out.println(cursor.getString(0));
                     word.id = cursor.getInt(0);
-                    word.label = cursor.getString(1);
-                    word.translation = cursor.getString(2);
-                    word.example = cursor.getString(3);
+                    word.fr = cursor.getString(1);
+                    word.jp = cursor.getString(2);
+                    word.en = cursor.getString(3);
+                    word.exp = cursor.getString(4);
                     list.add(word);
                 } //while (cursor.moveToNext());
                 this.addAll(list);
@@ -64,13 +65,13 @@ public final class Words extends ArrayList<Item> {
         }
     }
 
-    public void searchByTrans(String key) {
+    public void searchByJapanese(String key) {
         Item word;
         ArrayList<Item> list = new ArrayList<Item>();
         //DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ArrayList<String> words = new ArrayList<>();
-        String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE trans LIKE '%' || ? || '%' LIMIT 20";
+        String sql = "SELECT _id, fr, jp, en, exp FROM " + TABLE_NAME + " WHERE jp LIKE '%' || ? || '%' LIMIT 20";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, new String[]{key});
@@ -78,9 +79,10 @@ public final class Words extends ArrayList<Item> {
                 do {
                     word = new Item();//context);
                     word.id = cursor.getInt(0);
-                    word.label = cursor.getString(1);
-                    word.translation = cursor.getString(2);
-                    word.example = cursor.getString(3);
+                    word.fr = cursor.getString(1);
+                    word.jp = cursor.getString(2);
+                    word.en = cursor.getString(3);
+                    word.exp = cursor.getString(4);
                     list.add(word);
                 } while (cursor.moveToNext());
                 this.addAll(list);
@@ -101,7 +103,7 @@ public final class Words extends ArrayList<Item> {
             arr[i] = IDs.get(i).toString();
         }
 
-        String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE _id IN(" + TextUtils.join(",", Collections.nCopies(IDs.size(), "?")) + ")";
+        String sql = "SELECT _id, fr, jp, en, exp FROM " + TABLE_NAME + " WHERE _id IN(" + TextUtils.join(",", Collections.nCopies(IDs.size(), "?")) + ")";
         //String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE _id IN( " + IDs.toString() + " )";
         System.out.println("Execute sql: " + sql);
         try {
@@ -111,9 +113,10 @@ public final class Words extends ArrayList<Item> {
                 do {
                     word = new Item();
                     word.id = cursor.getInt(0);
-                    word.label = cursor.getString(1);
-                    word.translation = cursor.getString(2);
-                    word.example = cursor.getString(3);
+                    word.fr = cursor.getString(1);
+                    word.jp = cursor.getString(2);
+                    word.en = cursor.getString(3);
+                    word.exp = cursor.getString(4);
                     list.add(word);
                 } while (cursor.moveToNext());
                 this.addAll(list);
@@ -128,7 +131,7 @@ public final class Words extends ArrayList<Item> {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count = 0;
         try {
-            Cursor cursor = db.query(TABLE_NAME, new String[]{"label"}, null, null, null, null, null);
+            Cursor cursor = db.query(TABLE_NAME, new String[]{"fr"}, null, null, null, null, null);
             count = cursor.getCount();
             cursor.close();
         } finally {

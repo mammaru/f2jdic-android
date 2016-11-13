@@ -31,7 +31,7 @@ public final class Idioms extends ArrayList<Item> {
         Item idiom;
         ArrayList<Item> list = new ArrayList<Item>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "SELECT _id, label, trans, exp FROM " + TABLE_NAME + " WHERE label LIKE ? || ' %' OR label LIKE '% ' || ? || ' %' OR label LIKE '% ' || ? LIMIT 20";
+        String sql = "SELECT _id, fr, jp, en, exp FROM " + TABLE_NAME + " WHERE fr LIKE ? || ' %' OR fr LIKE '% ' || ? || ' %' OR fr LIKE '% ' || ? LIMIT 20";
         System.out.println("Execute sql: " + sql);
         try {
             Cursor cursor = db.rawQuery(sql, new String[]{key, key, key});
@@ -39,9 +39,10 @@ public final class Idioms extends ArrayList<Item> {
                 idiom = new Item();
                 //System.out.println(cursor.getString(0));
                 idiom.id = cursor.getInt(0);
-                idiom.label = cursor.getString(1);
-                idiom.translation = cursor.getString(2);
-                idiom.example = cursor.getString(3);
+                idiom.fr = cursor.getString(1);
+                idiom.jp = cursor.getString(2);
+                idiom.en = cursor.getString(3);
+                idiom.exp = cursor.getString(4);
                 list.add(idiom);
             }
             this.addAll(list);
@@ -55,7 +56,7 @@ public final class Idioms extends ArrayList<Item> {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count = 0;
         try {
-            Cursor cursor = db.query(TABLE_NAME, new String[]{"label"}, null, null, null, null, null);
+            Cursor cursor = db.query(TABLE_NAME, new String[]{"fr"}, null, null, null, null, null);
             count = cursor.getCount();
             cursor.close();
         } finally {

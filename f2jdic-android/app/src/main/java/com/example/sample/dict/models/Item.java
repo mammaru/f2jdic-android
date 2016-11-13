@@ -18,10 +18,12 @@ import java.util.Comparator;
 public final class Item implements Serializable {
     /** @fields */
     public int id;
-    public String label;
-    public String translation;
-    public String example;
-    public Timestamp viewed_at = null;
+    public String fr;
+    public String jp;
+    public String en;
+    public String exp;
+    public int count;
+    public boolean modified;
     private static final long serialVersionUID = 1L;
 
     /** @constructor */
@@ -31,9 +33,13 @@ public final class Item implements Serializable {
     /** @getter */
     public ArrayList<String> toArrayList() {
         ArrayList item = new ArrayList();
-        item.add(label);
-        item.add(translation);
-        item.add(example);
+        item.add(id);
+        item.add(fr);
+        item.add(jp);
+        item.add(en);
+        item.add(exp);
+        item.add(count);
+        item.add(modified);
         return item;
     }
 }

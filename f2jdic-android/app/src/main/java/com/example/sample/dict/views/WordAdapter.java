@@ -40,7 +40,7 @@ public class WordAdapter extends ArrayAdapter<Item> {
         }
 
         Item item = _items.get(position);
-        ((TextView) view.findViewById(R.id.list_item_textview)).setText(item.label);
+        ((TextView) view.findViewById(R.id.list_item_textview)).setText(item.fr);
 
         return view;
     }
