@@ -3,7 +3,6 @@ package com.example.sample.dict;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.app.Activity;
 import android.text.TextWatcher;
 import android.text.Editable;
 import android.view.View;
@@ -11,11 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.AdapterView;
-//import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.content.Intent;
 import android.util.Log;
-import java.util.ArrayList;
 import com.example.sample.dict.models.*;
 import com.example.sample.dict.views.WordAdapter;
 
@@ -35,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         Log.v(this.getLocalClassName(), String.valueOf(R.id.list_item_textview));
         lv = (ListView) findViewById(R.id.item_listview);
         history = new History(this);
-        words = history.get();;
+        words = history.get();
         setItemList(words);
         EditText et = (EditText)this.findViewById(R.id.search_input_edittext);
         et.addTextChangedListener(this);
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         Log.v(TextWatcher.class.getSimpleName(), "afterTextChanged s: " + s.toString());
-        if (s.toString().isEmpty()) { // TODO: Relationships of search bar's edittext and history
+        if (s.toString().isEmpty()) {
             words = history.get();
             setItemList(words);
         } else {

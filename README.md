@@ -11,6 +11,7 @@ Un simple dictionnaire français-japonais hors ligne pour android. Les données 
 * Android 5.1
 * API 22
 * Nexus 5 (Android 6.0.1)
+* OS X El Capitan(10.11.6)
 
 ## Unimplemented functions
 
@@ -24,7 +25,7 @@ Un simple dictionnaire français-japonais hors ligne pour android. Les données 
 ## Screenshots
 <img src="device-2016-11-04-024524.png" width="350px">
 <img src="device-2016-11-04-024904.png" width="350px">
-
+a
 # Usage
 
 ## Data preprocessing

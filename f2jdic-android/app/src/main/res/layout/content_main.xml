@@ -27,9 +27,9 @@
             android:hint="Search"
             android:textSize="@dimen/abc_text_size_large_material"
             style="@android:style/Widget.Material.AutoCompleteTextView"
-            android:singleLine="false"
             android:selectAllOnFocus="false"
-            android:textColorHint="@color/primary_text_disabled_material_dark" />
+            android:textColorHint="@color/button_material_dark"
+            android:singleLine="true" />
 
         <ListView
             android:id="@+id/item_listview"
